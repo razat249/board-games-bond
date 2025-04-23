@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/board-games-bond/static/css/main.e1c5f6bf.css",
-    "main.js": "/board-games-bond/static/js/main.33aeffff.js",
+    "main.css": "/board-games-bond/static/css/main.25008ac0.css",
+    "main.js": "/board-games-bond/static/js/main.cd30d318.js",
     "index.html": "/board-games-bond/index.html",
     "static/media/codenames.svg": "/board-games-bond/static/media/codenames.1fcd0647ac2afad1051cdc55026a0374.svg",
     "static/media/decrypto.svg": "/board-games-bond/static/media/decrypto.b8d0737f0e6056b9f616de6449b1db08.svg",
     "static/media/chess.svg": "/board-games-bond/static/media/chess.638b40914fb913229dcd373297a0915c.svg",
-    "main.e1c5f6bf.css.map": "/board-games-bond/static/css/main.e1c5f6bf.css.map",
-    "main.33aeffff.js.map": "/board-games-bond/static/js/main.33aeffff.js.map"
+    "main.25008ac0.css.map": "/board-games-bond/static/css/main.25008ac0.css.map",
+    "main.cd30d318.js.map": "/board-games-bond/static/js/main.cd30d318.js.map"
   },
   "entrypoints": [
-    "static/css/main.e1c5f6bf.css",
-    "static/js/main.33aeffff.js"
+    "static/css/main.25008ac0.css",
+    "static/js/main.cd30d318.js"
   ]
 }
