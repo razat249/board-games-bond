@@ -1,0 +1,707 @@
+/* Codenames Duet Game Container */
+.codenames-duet-game {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Player Selection */
+.player-selection {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.player-selection h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.selection-tabs {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.selection-tabs button {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+}
+
+.selection-tabs button.active {
+  background-color: #2196f3;
+  color: white;
+}
+
+.selection-tabs button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.selection-tabs button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.player-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#gameCode {
+  font-size: 1.5rem;
+  letter-spacing: 0.3rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.start-game-btn {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.start-game-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.game-link-container {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.game-link {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.game-link input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.game-link button {
+  padding: 0.5rem 1rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.game-code-display {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.game-code-display strong {
+  font-size: 1.5rem;
+  letter-spacing: 0.3rem;
+  color: #2196f3;
+  background: #e3f2fd;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* Codenames Duet Container */
+.codenames-duet-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* Codenames Duet Board */
+.codenames-duet-board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Codenames Duet Card */
+.codenames-duet-card {
+  aspect-ratio: 1 / 0.7;
+  background-color: #f5e9cb;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  position: relative;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.codenames-duet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.codenames-duet-card.hovered {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.codenames-duet-card.revealed {
+  cursor: default;
+}
+
+.codenames-duet-card.disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.codenames-duet-card.disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.codenames-duet-card .card-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.codenames-duet-card .card-word {
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+/* Card Colors */
+.codenames-duet-card.revealed.agent {
+  background-color: #8bc34a;
+  color: white;
+}
+
+/* Agent cards animation when game is won */
+.game-result.win ~ .codenames-duet-board .codenames-duet-card.revealed.agent {
+  animation: agent-celebrate 3s infinite alternate;
+}
+
+@keyframes agent-celebrate {
+  0% {
+    box-shadow: 0 0 5px #8bc34a;
+    transform: translateY(0);
+  }
+  100% {
+    box-shadow: 0 0 15px #8bc34a;
+    transform: translateY(-3px);
+  }
+}
+
+.codenames-duet-card.revealed.assassin {
+  background-color: #f44336;
+  color: white;
+}
+
+.codenames-duet-card.revealed.bystander {
+  background-color: #bdbdbd;
+  color: #424242;
+}
+
+/* Key Card */
+.key-card-container {
+  margin-bottom: 1rem;
+}
+
+.keycard {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.keycard-title {
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.keycard-title h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.keycard-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
+.keycard-cell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+}
+
+.keycard-cell.agent {
+  background-color: #8bc34a;
+}
+
+.keycard-cell.assassin {
+  background-color: #f44336;
+}
+
+.keycard-cell.bystander {
+  background-color: #bdbdbd;
+}
+
+.keycard-legend {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.8rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-color.agent {
+  background-color: #8bc34a;
+}
+
+.legend-color.assassin {
+  background-color: #f44336;
+}
+
+.legend-color.bystander {
+  background-color: #bdbdbd;
+}
+
+/* Game Controls */
+.codenames-duet-controls {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 1.2rem;
+  width: 100%;
+}
+
+.game-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.game-status > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.game-status h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.player-indicator {
+  background-color: #2196f3;
+  color: white;
+  border-radius: 4px;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.player-indicator.player2 {
+  background-color: #673ab7;
+}
+
+.switch-player {
+  width: 100%;
+  padding: 0.4rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.switch-player:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.switch-player:disabled, .switch-player.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #eaeaea;
+  color: #999;
+}
+
+.tokens-display {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.token {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #ffc107;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.token.used {
+  background-color: #e0e0e0;
+  opacity: 0.5;
+}
+
+.agents-counter {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #4caf50;
+  text-align: center;
+}
+
+.agents-counter.celebrate {
+  animation: celebrate 1s ease infinite;
+  color: #ffeb3b;
+  text-shadow: 0 0 5px #4caf50, 0 0 15px #4caf50;
+  font-size: 1.5rem;
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.game-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.game-actions button {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.key-card-toggle {
+  background-color: #673ab7;
+  color: white;
+}
+
+.key-card-toggle:hover {
+  background-color: #5e35b1;
+}
+
+.key-card-toggle.active {
+  background-color: #4527a0;
+}
+
+.reset-game {
+  background-color: #ff9800;
+  color: white;
+}
+
+.reset-game:hover {
+  background-color: #f57c00;
+}
+
+.game-help {
+  background-color: #e8f5e9;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.game-help h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.game-help ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+}
+
+.game-help li {
+  margin-bottom: 0.3rem;
+}
+
+/* Game Result */
+.game-result {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 400px;
+}
+
+.game-result h2 {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+}
+
+.game-result.win h2 {
+  animation: win-pulse 1.5s infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+@keyframes win-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.game-result p {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.2rem;
+}
+
+.game-result button {
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.game-result.win {
+  background-color: #43a047;
+  animation: win-glow 2s infinite alternate;
+}
+
+@keyframes win-glow {
+  from {
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5), 0 0 20px rgba(67, 160, 71, 0.7);
+  }
+  to {
+    box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.7), 0 0 30px rgba(67, 160, 71, 0.9);
+  }
+}
+
+.game-result.win button {
+  background-color: white;
+  color: #43a047;
+}
+
+.game-result.win button:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.game-result.lose {
+  background-color: #d32f2f;
+}
+
+.game-result.lose button {
+  background-color: white;
+  color: #d32f2f;
+}
+
+.game-result.lose button:hover {
+  background-color: #f5f5f5;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .codenames-duet-board {
+    gap: 0.4rem;
+    width: 100%;
+    max-width: 95vw;
+  }
+  
+  .codenames-duet-card .card-word {
+    font-size: 0.8rem;
+  }
+  
+  .game-status {
+    flex-direction: column;
+  }
+  
+  .game-status > div {
+    width: 100%;
+  }
+  
+  .game-actions {
+    flex-direction: column;
+  }
+  
+  .codenames-duet-container {
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  .codenames-duet-game {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .codenames-duet-board {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.2rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 0 5px;
+  }
+  
+  .codenames-duet-card {
+    aspect-ratio: 1 / 0.8;
+    padding: 0.2rem;
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .codenames-duet-card .card-word {
+    font-size: 0.55rem;
+    line-height: 1;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  
+  .codenames-duet-game {
+    padding: 0.5rem;
+    width: 100%;
+  }
+  
+  .codenames-duet-card:hover {
+    transform: none;
+  }
+  
+  .codenames-duet-container {
+    padding: 0;
+  }
+}
+
+.game-code-info {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background-color: #e3f2fd;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.game-code-value {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.game-code-value strong {
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  color: #2196f3;
+}
+
+.game-code-actions {
+  display: flex;
+  justify-content: space-around;
+  gap: 0.5rem;
+}
+
+.game-code-actions button {
+  padding: 0.4rem 0.6rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.game-code-actions button:hover {
+  background-color: #1976d2;
+}
+
+.game-result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.new-game-btn {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  color: #333 !important;
+} 

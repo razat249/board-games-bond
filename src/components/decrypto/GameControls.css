@@ -1,0 +1,295 @@
+.setup-controls, .encrypt-controls, .guess-controls, .round-end-controls, .game-over-controls {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 2px solid #333;
+  color: #eaeaea;
+}
+
+.game-mode-switch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 0;
+  border: 2px solid #444;
+}
+
+.mode-button {
+  flex: 1;
+  padding: 12px 20px;
+  background-color: #222;
+  color: #aaa;
+  border: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin: 0;
+  max-width: 200px;
+}
+
+.mode-button.active {
+  background-color: #4ca8ff;
+  color: #111;
+  font-weight: bold;
+}
+
+.team-setup, .join-game-section {
+  margin-bottom: 20px;
+}
+
+.team1-setup h3 {
+  color: #4ca8ff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+
+.team2-setup h3 {
+  color: #ff4c4c;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+
+.team-name-input, .game-code-input {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #444;
+}
+
+.team-name-field, .game-code-field {
+  background-color: #1a1a1a;
+  border: 1px solid #4ca8ff;
+  box-shadow: 0 0 8px rgba(76, 168, 255, 0.2);
+}
+
+.game-code-field {
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.opponent-info, .join-info {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #1a1a1a;
+  border-left: 3px solid #ff4c4c;
+}
+
+.opponent-note, .join-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #ccc;
+  font-style: italic;
+}
+
+.join-game-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.join-game-button {
+  background-color: #ff4c4c;
+  margin-top: 30px;
+}
+
+.join-game-button:hover {
+  background-color: #ff6e6e;
+}
+
+.auto-generate-button {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #333;
+  border: 1px dashed #4ca8ff;
+}
+
+.auto-generate-button:hover {
+  background-color: #444;
+  box-shadow: 0 0 10px rgba(76, 168, 255, 0.3);
+}
+
+.word-input-group, .clue-input-group, .guess-input-group {
+  margin-bottom: 12px;
+}
+
+.primary-button {
+  background-color: #4ca8ff;
+  color: #111;
+  border: none;
+  margin-top: 15px;
+  font-size: 1rem;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.secondary-button {
+  background-color: #555;
+  color: #eaeaea;
+  border: none;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+}
+
+.cancel-button {
+  background-color: #ff4c4c;
+  color: #111;
+  border: none;
+  margin-left: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+}
+
+.submit-clues-button {
+  background-color: #9b59b6;
+  color: #eaeaea;
+}
+
+.submit-guess-button {
+  background-color: #27ae60;
+  color: #111;
+}
+
+.code-display {
+  background-color: #111;
+  padding: 12px;
+  border-radius: 0;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px dashed #555;
+  color: #4ca8ff;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  box-shadow: inset 0 0 10px rgba(76, 168, 255, 0.2);
+}
+
+.clues-display {
+  background-color: #111;
+  padding: 15px;
+  border-radius: 0;
+  margin-bottom: 20px;
+  border: 1px solid #444;
+  color: #eaeaea;
+}
+
+.clues-display ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #eaeaea;
+}
+
+.clues-display li {
+  margin-bottom: 5px;
+  font-family: 'Courier New', monospace;
+}
+
+.guess-inputs, .interception-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.guess-input-group, .interception-input-group {
+  flex: 1;
+}
+
+.interception-controls {
+  background-color: #1a1a1a;
+  padding: 15px;
+  border-radius: 0;
+  margin-top: 20px;
+  border: 1px solid #444;
+}
+
+.interception-controls h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #ff4c4c;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+}
+
+.game-over-controls {
+  text-align: center;
+}
+
+.game-over-controls h3 {
+  color: #ff4c4c;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+
+.final-scores {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+
+.team-score {
+  text-align: center;
+  padding: 15px;
+  border-radius: 0;
+  background-color: #222;
+  min-width: 200px;
+  border: 1px solid #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.team-score h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+}
+
+.team-score:nth-child(1) h4 {
+  color: #4ca8ff;
+}
+
+.team-score:nth-child(2) h4 {
+  color: #ff4c4c;
+}
+
+.new-game-button {
+  font-size: 1.1rem;
+  padding: 12px 24px;
+}
+
+@media (max-width: 768px) {
+  .guess-inputs, .interception-inputs {
+    flex-direction: column;
+  }
+  
+  .final-scores {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .team-score {
+    width: 100%;
+  }
+} 

@@ -1,0 +1,209 @@
+.team-board {
+  flex: 1;
+  padding: 20px;
+  border-radius: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid #333;
+}
+
+.team-board.active {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.team-board.my-device {
+  border: 2px solid #4ca8ff;
+  box-shadow: 0 0 15px rgba(76, 168, 255, 0.3);
+}
+
+.team-board.team1 {
+  border-top: 5px solid #4ca8ff;
+}
+
+.team-board.team2 {
+  border-top: 5px solid #ff4c4c;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+}
+
+.team-header h2 {
+  margin: 0;
+  color: #eaeaea;
+  font-size: 1.5rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.team1 .team-header h2 {
+  color: #4ca8ff;
+}
+
+.team2 .team-header h2 {
+  color: #ff4c4c;
+}
+
+.team-status {
+  display: flex;
+  gap: 15px;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-label {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #eaeaea;
+}
+
+.word-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.word-card {
+  position: relative;
+  background-color: #333;
+  border-radius: 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  height: 80px;
+  transition: transform 0.2s ease;
+  border: 1px solid #444;
+}
+
+.word-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.word-number {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #eaeaea;
+  background-color: #444;
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  color: #eaeaea;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+.team-content {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.current-round, .history-section {
+  background-color: #2a2a2a;
+  border-radius: 0;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #444;
+}
+
+.history-item {
+  padding: 10px;
+  border-radius: 0;
+  background-color: #333;
+  margin-bottom: 8px;
+  border-left: 3px solid #444;
+}
+
+.history-round {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.history-code, .history-clues, .history-guess {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #eaeaea;
+  font-family: 'Courier New', monospace;
+}
+
+.team-turn-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.turn-badge {
+  padding: 6px 12px;
+  border-radius: 0;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #eaeaea;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.turn-badge.encrypt {
+  background-color: #9b59b6;
+}
+
+.turn-badge.guess {
+  background-color: #27ae60;
+}
+
+.your-team-badge {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background-color: #4ca8ff;
+  color: #111;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+} 

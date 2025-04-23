@@ -1,0 +1,352 @@
+.App {
+  text-align: center;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #2d3748;
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background-color: #4a5568;
+  border-radius: 2px;
+}
+
+.tagline {
+  color: #4a5568;
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+.game-tiles {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 50px;
+}
+
+.game-tile {
+  border: none;
+  padding: 0;
+  border-radius: 12px;
+  width: 280px;
+  height: 320px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.game-tile:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.game-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+}
+
+.game-info {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-wrapper {
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.icon-wrapper.large {
+  width: 80px;
+  height: 80px;
+}
+
+.game-tile h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.game-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  max-width: 90%;
+}
+
+footer {
+  margin-top: auto;
+  padding: 20px 0;
+  color: #4a5568;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+/* Game-specific backgrounds */
+.game-tile:nth-child(1) {
+  background-image: url('https://images.unsplash.com/photo-1637844528612-856dda7b5ac4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+}
+
+.game-tile:nth-child(2) {
+  background-image: url('https://images.unsplash.com/photo-1615672968659-08dbecc27ddb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+}
+
+.game-tile:nth-child(3) {
+  background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+}
+
+/* Game Page Styles */
+.game-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.game-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.back-link {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 20px;
+  transition: color 0.3s;
+  align-self: flex-start;
+}
+
+.back-link:hover {
+  color: #2d3748;
+}
+
+.game-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.game-title h1 {
+  margin: 20px 0;
+}
+
+.game-title h1::after {
+  width: 80px;
+}
+
+.game-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.game-info-section {
+  margin-bottom: 40px;
+}
+
+.game-info-section h2 {
+  color: #2d3748;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.game-info-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #4a5568;
+  border-radius: 2px;
+}
+
+.game-info-section p {
+  color: #4a5568;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.game-action {
+  display: flex;
+  justify-content: center;
+}
+
+.action-button {
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #2d3748;
+}
+
+/* Game Navigation Styles */
+.game-navigation {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.back-to-instructions {
+  background-color: #f0f2f5;
+  color: #4a5568;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.back-to-instructions:hover {
+  background-color: #e2e8f0;
+  color: #2d3748;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-to-instructions:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-code-header {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.game-code-header::before {
+  content: '🎮 ';
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .App {
+    padding: 20px 15px;
+  }
+  
+  header {
+    margin-bottom: 30px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .game-tiles {
+    gap: 20px;
+  }
+  
+  .game-tile {
+    width: 100%;
+    max-width: 320px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-tile {
+    height: 240px;
+  }
+  
+  .icon-wrapper {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .game-tile h2 {
+    font-size: 1.5rem;
+  }
+  
+  .game-info p {
+    font-size: 0.8rem;
+  }
+  
+  /* Specific styles for Codenames Duet */
+  .game-tile:nth-child(2) {
+    background-position: top center;
+  }
+}
