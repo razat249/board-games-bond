@@ -118,18 +118,6 @@ const DecryptoGame = () => {
     }));
   };
 
-  const submitClues = (clues) => {
-    const team = gameState.currentTeam === 1 ? 'team1' : 'team2';
-    setGameState(prev => ({
-      ...prev,
-      [team]: {
-        ...prev[team],
-        clues: [...prev[team].clues, clues]
-      },
-      phase: gameState.currentTeam === 1 ? 'team1Guess' : 'team2Guess'
-    }));
-  };
-
   const submitTeamGuess = (guess) => {
     const team = gameState.currentTeam === 1 ? 'team1' : 'team2';
     const teamCodes = gameState[team].codes || [];
@@ -182,6 +170,18 @@ const DecryptoGame = () => {
     });
   };
 
+  const submitClues = (clues) => {
+    const team = gameState.currentTeam === 1 ? 'team1' : 'team2';
+    setGameState(prev => ({
+      ...prev,
+      [team]: {
+        ...prev[team],
+        clues: [...prev[team].clues, clues]
+      },
+      phase: gameState.currentTeam === 1 ? 'team1Guess' : 'team2Guess'
+    }));
+  };
+
   const nextRound = () => {
     setGameState(prev => ({
       ...prev,
@@ -216,6 +216,7 @@ const DecryptoGame = () => {
 
   // Determine which team's board to show based on isTeam2 flag
   const teamToShow = gameState.isTeam2 ? 2 : 1;
+  const opponentTeamNumber = teamToShow === 1 ? 2 : 1;
 
   return (
     <div className="decrypto-game">
@@ -260,6 +261,8 @@ const DecryptoGame = () => {
               isCurrentTeam={gameState.currentTeam === teamToShow} 
               phase={gameState.phase}
               round={gameState.round}
+              opponentTeamData={teamToShow === 1 ? gameState.team2 : gameState.team1}
+              opponentTeamName={teamToShow === 1 ? gameState.team2Name : gameState.team1Name}
             />
           </div>
           

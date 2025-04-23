@@ -206,4 +206,26 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.clue-tracker-toggle {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.toggle-button {
+  background-color: #333;
+  color: #eaeaea;
+  border: 1px solid #444;
+  padding: 8px 15px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #444;
+  border-color: #555;
+  transform: translateY(-2px);
 } 

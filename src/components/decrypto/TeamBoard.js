@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ClueTracker from './ClueTracker';
 import './TeamBoard.css';
 
-const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round }) => {
+const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round, opponentTeamData, opponentTeamName }) => {
   const { words, intercepted, miscommunications, codes, clues, guesses } = teamData;
+  const [showClueTracker, setShowClueTracker] = useState(false);
 
   const renderWordCards = () => {
     return (
@@ -123,6 +125,25 @@ const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round
       <div className="team-content">
         {renderCurrentRound()}
         {renderHistory()}
+        
+        <div className="clue-tracker-toggle">
+          <button 
+            className="toggle-button"
+            onClick={() => setShowClueTracker(!showClueTracker)}
+          >
+            {showClueTracker ? 'HIDE CLUE TRACKER' : 'SHOW CLUE TRACKER'}
+          </button>
+        </div>
+        
+        {showClueTracker && opponentTeamData && (
+          <ClueTracker 
+            teamData={teamData}
+            opponentTeamData={opponentTeamData}
+            teamNumber={teamNumber}
+            teamName={teamName}
+            opponentTeamName={opponentTeamName}
+          />
+        )}
       </div>
       
       <div className="team-turn-indicator">
