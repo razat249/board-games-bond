@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ReactComponent as DecryptoIcon } from '../images/decrypto.svg';
 import DecryptoGame from '../components/decrypto/DecryptoGame';
 import './Decrypto.css';
 
 function Decrypto() {
   const [gameStarted, setGameStarted] = useState(false);
+  const { gameCode } = useParams();
+  const navigate = useNavigate();
   
   useEffect(() => {
     // Change body background when component mounts
@@ -16,20 +18,27 @@ function Decrypto() {
       document.body.classList.remove('decrypto-body');
     };
   }, []);
+  
+  // If we have a game code in the URL, start the game immediately
+  useEffect(() => {
+    if (gameCode) {
+      setGameStarted(true);
+    }
+  }, [gameCode]);
+  
+  const handleStartGame = () => {
+    // Generate a random 4-digit code if none exists
+    if (!gameCode) {
+      const randomCode = Math.floor(1000 + Math.random() * 9000).toString();
+      navigate(`/decrypto/${randomCode}`);
+    } else {
+      setGameStarted(true);
+    }
+  };
 
   return (
     <div className="decrypto-page">
-      <div className="decrypto-header">
-        <Link to="/" className="decrypto-back-link">
-          ← Back to Games
-        </Link>
-        <div className="decrypto-title">
-          <div className="icon-wrapper large">
-            <DecryptoIcon />
-          </div>
-          <h1>DECRYPTO</h1>
-        </div>
-      </div>
+
       
       {!gameStarted ? (
         <div className="decrypto-content">
@@ -50,7 +59,7 @@ function Decrypto() {
           </section>
           
           <section className="decrypto-action">
-            <button className="decrypto-action-button" onClick={() => setGameStarted(true)}>
+            <button className="decrypto-action-button" onClick={handleStartGame}>
               START MISSION
             </button>
           </section>

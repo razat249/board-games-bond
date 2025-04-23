@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './GameControls.css';
 
 // Word bank for auto-generation
@@ -20,7 +20,8 @@ const GameControls = ({
   nextRound,
   gameEnded,
   winner,
-  joinGame
+  joinGame,
+  hasUrlGameCode
 }) => {
   const [team1Words, setTeam1Words] = useState(['', '', '', '']);
   const [team2Words, setTeam2Words] = useState(['', '', '', '']);
@@ -31,8 +32,16 @@ const GameControls = ({
   const [interceptionGuess, setInterceptionGuess] = useState([1, 1, 1]);
   const [showInterception, setShowInterception] = useState(false);
   const [joinGameCode, setJoinGameCode] = useState('');
-  const [joiningTeamName, setJoiningTeamName] = useState('Team 2');
-  const [creatingNewGame, setCreatingNewGame] = useState(true);
+  const [joiningTeamName, setJoiningTeamName] = useState('Team 1');
+  const [creatingNewGame, setCreatingNewGame] = useState(!hasUrlGameCode);
+  const [selectedTeam, setSelectedTeam] = useState('team1'); // Default to team 1 for joining
+
+  // Initialize join game code from gameState when available via URL
+  useEffect(() => {
+    if (hasUrlGameCode && gameState.gameCode) {
+      setJoinGameCode(gameState.gameCode);
+    }
+  }, [hasUrlGameCode, gameState.gameCode]);
 
   // Auto-generate random words from word bank
   const generateRandomWords = () => {
@@ -99,8 +108,11 @@ const GameControls = ({
       return;
     }
     
+    const isTeam2 = selectedTeam === 'team2';
+    const teamName = joiningTeamName || (isTeam2 ? 'Team 2' : 'Team 1');
+    
     // Join existing game
-    joinGame(joinGameCode.trim().toUpperCase(), joiningTeamName);
+    joinGame(joinGameCode.trim(), teamName, isTeam2);
   };
 
   const autoGenerateTeam1Words = () => {
@@ -131,22 +143,24 @@ const GameControls = ({
   const renderSetupControls = () => {
     return (
       <div className="setup-controls">
-        <div className="game-mode-switch">
-          <button 
-            className={`mode-button ${creatingNewGame ? 'active' : ''}`}
-            onClick={() => setCreatingNewGame(true)}
-          >
-            CREATE GAME
-          </button>
-          <button 
-            className={`mode-button ${!creatingNewGame ? 'active' : ''}`}
-            onClick={() => setCreatingNewGame(false)}
-          >
-            JOIN GAME
-          </button>
-        </div>
+        {!hasUrlGameCode && (
+          <div className="game-mode-switch">
+            <button 
+              className={`mode-button ${creatingNewGame ? 'active' : ''}`}
+              onClick={() => setCreatingNewGame(true)}
+            >
+              CREATE GAME
+            </button>
+            <button 
+              className={`mode-button ${!creatingNewGame ? 'active' : ''}`}
+              onClick={() => setCreatingNewGame(false)}
+            >
+              JOIN GAME
+            </button>
+          </div>
+        )}
 
-        {creatingNewGame ? (
+        {creatingNewGame && !hasUrlGameCode ? (
           // Create new game
           <div className="team-setup team1-setup">
             <div className="team-name-input">
@@ -196,16 +210,53 @@ const GameControls = ({
         ) : (
           // Join existing game
           <div className="join-game-section">
-            <div className="game-code-input">
-              <label>GAME CODE:</label>
-              <input
-                type="text"
-                value={joinGameCode}
-                onChange={(e) => setJoinGameCode(e.target.value.toUpperCase())}
-                placeholder="Enter game code"
-                className="game-code-field"
-                maxLength={6}
-              />
+            {!hasUrlGameCode && (
+              <div className="game-code-input">
+                <label>GAME CODE:</label>
+                <input
+                  type="text"
+                  value={joinGameCode}
+                  onChange={(e) => setJoinGameCode(e.target.value.toUpperCase())}
+                  placeholder="Enter game code"
+                  className="game-code-field"
+                  maxLength={6}
+                />
+              </div>
+            )}
+            
+            <div className="team-selection">
+              <h3>SELECT YOUR TEAM</h3>
+              <div className="team-options">
+                <div 
+                  className={`team-option ${selectedTeam === 'team1' ? 'selected' : ''}`}
+                  onClick={() => {
+                    setSelectedTeam('team1');
+                    setJoiningTeamName('Team 1');
+                  }}
+                >
+                  <div className="team-option-radio">
+                    <div className={`radio-inner ${selectedTeam === 'team1' ? 'active' : ''}`}></div>
+                  </div>
+                  <div className="team-option-details">
+                    <span className="team-option-name">Team 1</span>
+                  </div>
+                </div>
+                
+                <div 
+                  className={`team-option ${selectedTeam === 'team2' ? 'selected' : ''}`}
+                  onClick={() => {
+                    setSelectedTeam('team2');
+                    setJoiningTeamName('Team 2');
+                  }}
+                >
+                  <div className="team-option-radio">
+                    <div className={`radio-inner ${selectedTeam === 'team2' ? 'active' : ''}`}></div>
+                  </div>
+                  <div className="team-option-details">
+                    <span className="team-option-name">Team 2</span>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <div className="team-name-input">
@@ -214,7 +265,7 @@ const GameControls = ({
                 type="text"
                 value={joiningTeamName}
                 onChange={(e) => setJoiningTeamName(e.target.value)}
-                placeholder="Enter your team name"
+                placeholder={`Enter ${selectedTeam === 'team1' ? 'Team 1' : 'Team 2'} name`}
                 className="team-name-field"
               />
             </div>

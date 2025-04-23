@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import ClueTracker from './ClueTracker';
 import './TeamBoard.css';
 
 const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round, opponentTeamData, opponentTeamName }) => {
   const { words, intercepted, miscommunications, codes, clues, guesses } = teamData;
-  const [showClueTracker, setShowClueTracker] = useState(false);
 
   const renderWordCards = () => {
     return (
-      <div className="word-cards">
+      <div className="word-monitor-display">
         {words.map((word, index) => (
-          <div key={index} className="word-card">
-            <div className="word-number">{index + 1}</div>
-            <div className="word-text">{word}</div>
+          <div key={index} className="word-monitor">
+            <div className="monitor-screen">
+              <div className="screen-content">{word}</div>
+            </div>
+            <div className="monitor-controls">
+              <div className="control-knobs">
+                <div className="knob"></div>
+                <div className="knob"></div>
+                <div className="knob"></div>
+              </div>
+            </div>
+            <div className="monitor-number-container">
+              <div className="monitor-number">{index + 1}</div>
+            </div>
           </div>
         ))}
       </div>
@@ -115,6 +124,10 @@ const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round
 
   return (
     <div className={`team-board team${teamNumber} ${isCurrentTeam ? 'active' : ''} ${isMyDevice ? 'my-device' : ''}`}>
+      <div className="screw-top-left"></div>
+      <div className="screw-top-right"></div>
+      <div className="screw-bottom-left"></div>
+      <div className="screw-bottom-right"></div>
       <div className="team-header">
         <h2>{teamName || `Team ${teamNumber}`}</h2>
         {renderStatus()}
@@ -125,25 +138,6 @@ const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round
       <div className="team-content">
         {renderCurrentRound()}
         {renderHistory()}
-        
-        <div className="clue-tracker-toggle">
-          <button 
-            className="toggle-button"
-            onClick={() => setShowClueTracker(!showClueTracker)}
-          >
-            {showClueTracker ? 'HIDE CLUE TRACKER' : 'SHOW CLUE TRACKER'}
-          </button>
-        </div>
-        
-        {showClueTracker && opponentTeamData && (
-          <ClueTracker 
-            teamData={teamData}
-            opponentTeamData={opponentTeamData}
-            teamNumber={teamNumber}
-            teamName={teamName}
-            opponentTeamName={opponentTeamName}
-          />
-        )}
       </div>
       
       <div className="team-turn-indicator">

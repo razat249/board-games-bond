@@ -292,4 +292,84 @@
   .team-score {
     width: 100%;
   }
+}
+
+.team-selection {
+  margin-bottom: 20px;
+}
+
+.team-options {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.team-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #333;
+  border: 2px solid #444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.team-option.selected {
+  border-color: #4ca8ff;
+  background-color: rgba(76, 168, 255, 0.1);
+  box-shadow: 0 0 10px rgba(76, 168, 255, 0.2);
+}
+
+.team-option:hover {
+  background-color: #3a3a3a;
+  transform: translateY(-2px);
+}
+
+.team-option-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #666;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-option.selected .team-option-radio {
+  border-color: #4ca8ff;
+}
+
+.radio-inner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.radio-inner.active {
+  background-color: #4ca8ff;
+}
+
+.team-option-details {
+  flex: 1;
+}
+
+.team-option-name {
+  font-weight: bold;
+  color: #eaeaea;
+  font-size: 1rem;
+}
+
+/* Responsive adjustments for team selection */
+@media (max-width: 500px) {
+  .team-options {
+    flex-direction: column;
+  }
+  
+  .team-option {
+    width: 100%;
+  }
 } 

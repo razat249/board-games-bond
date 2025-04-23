@@ -1,23 +1,21 @@
 .decrypto-game {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
   padding: 20px;
   font-family: 'Courier New', monospace;
   background-color: #1a1a1a;
   color: #eaeaea;
+  max-width: none;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
-.game-boards {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
+/* Setup phase styles */
 .setup-phase {
   width: 100%;
   display: flex;
@@ -61,20 +59,30 @@
   margin-bottom: 0;
 }
 
+/* Game status bar */
 .game-status-bar {
   background-color: #111;
   padding: 10px 15px;
   margin-bottom: 20px;
   border-bottom: 1px solid #444;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .game-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
+}
+
+.game-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 .game-code-label, .game-round, .current-team {
@@ -87,18 +95,91 @@
   color: #4ca8ff;
 }
 
-@media (max-width: 768px) {
-  .game-boards {
-    flex-direction: column;
-  }
-  
-  .game-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
+/* New layout for the game */
+.game-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 100px); /* Adjust based on header height */
+  gap: 20px;
+  box-sizing: border-box;
 }
 
+.upper-section {
+  display: flex;
+  width: 100%;
+  height: 60%;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.team-board-container, .clue-tracker-container, 
+.code-generator-container, .controls-container {
+  flex: 1;
+  border: 1px solid #444;
+  padding: 15px;
+  background-color: #222;
+  overflow: auto;
+  height: auto;
+  min-height: min-content;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.team-board-container h3, .clue-tracker-container h3,
+.code-generator-container h3, .controls-container h3 {
+  margin-top: 0;
+}
+
+.lower-section {
+  display: flex;
+  width: 100%;
+  height: 40%;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.code-generator-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Buttons */
+.toggle-controls-button, .share-game-button {
+  background-color: #4ca8ff;
+  color: #111;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-controls-button:hover, .share-game-button:hover {
+  background-color: #3a97ee;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.share-game-button {
+  background-color: #50c878; /* Emerald green */
+  margin-right: 8px;
+}
+
+.share-game-button:hover {
+  background-color: #3cb371; /* Medium sea green */
+}
+
+/* General styling */
 .decrypto-game h1, .decrypto-game h2, .decrypto-game h3 {
   color: #eaeaea;
   margin-bottom: 15px;
@@ -151,4 +232,193 @@
 .decrypto-game input:focus, .decrypto-game select:focus {
   outline: none;
   border-color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .upper-section, .lower-section {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .team-board-container, .clue-tracker-container,
+  .code-generator-container, .controls-container {
+    height: auto;
+    min-height: min-content;
+  }
+  
+  .game-status-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .game-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    width: 100%;
+  }
+  
+  .game-buttons {
+    width: 100%;
+  }
+  
+  .toggle-controls-button {
+    width: 100%;
+  }
+}
+
+/* Enhanced Collapsible Section Styles */
+.collapsible-section {
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+  border: 1px solid #333;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: linear-gradient(120deg, #2a2a2a, #333);
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+  position: relative;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(76, 168, 255, 0.5), transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.section-header:hover::after {
+  transform: scaleX(1);
+}
+
+.section-header:hover {
+  background: linear-gradient(120deg, #333, #3a3a3a);
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #4ca8ff;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 0 10px rgba(76, 168, 255, 0.2);
+  letter-spacing: 1.5px;
+}
+
+.collapse-icon {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4ca8ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 10px rgba(76, 168, 255, 0.3);
+}
+
+.section-collapsed .collapse-icon {
+  color: rgba(76, 168, 255, 0.7);
+}
+
+.section-expanded .collapse-icon {
+  color: #4ca8ff;
+}
+
+.section-content {
+  padding: 18px;
+  animation: fadeIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  max-height: 100%;
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(76, 168, 255, 0.03), transparent 80%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.team-board-container, .clue-tracker-container, 
+.code-generator-container, .controls-container {
+  transition: all 0.3s ease;
+}
+
+/* Active (expanded) section styles */
+.collapsible-section.section-expanded {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 0 15px rgba(76, 168, 255, 0.1);
+  border-color: #4ca8ff;
+}
+
+.section-expanded .section-header {
+  border-bottom-color: #4ca8ff;
+}
+
+/* Collapsed section styles */
+.collapsible-section.section-collapsed {
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #222, #1d1d1d);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-color: #333;
+}
+
+/* Responsive styles for collapsible sections */
+@media (max-width: 768px) {
+  .section-header {
+    padding: 12px 15px;
+  }
+  
+  .section-header h3 {
+    font-size: 1rem;
+  }
+  
+  .section-content {
+    padding: 15px;
+  }
+  
+  .collapse-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 1.2rem;
+  }
+}
+
+.section-header:hover .collapse-icon {
+  transform: scale(1.15);
+  text-shadow: 0 0 15px rgba(76, 168, 255, 0.5);
+}
+
+.section-header:active .collapse-icon {
+  transform: scale(0.95);
 } 

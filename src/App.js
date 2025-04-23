@@ -5,6 +5,7 @@ import Codenames from './pages/Codenames';
 import CodenamesDuet from './pages/CodenamesDuet';
 import Decrypto from './pages/Decrypto';
 import Chess from './pages/Chess';
+import Splendor from './pages/Splendor';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
         <Route path="/codenames-duet" element={<CodenamesDuet />} />
         <Route path="/codenames-duet/:gameCode" element={<CodenamesDuet />} />
         <Route path="/decrypto" element={<Decrypto />} />
+        <Route path="/decrypto/:gameCode" element={<Decrypto />} />
         <Route path="/chess" element={<Chess />} />
+        <Route path="/splendor" element={<Splendor />} />
       </Routes>
     </Router>
   );

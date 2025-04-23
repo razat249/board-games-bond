@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as CodenamesIcon } from '../images/codenames.svg';
 import { ReactComponent as DecryptoIcon } from '../images/decrypto.svg';
 import { ReactComponent as ChessIcon } from '../images/chess.svg';
+import { ReactComponent as SplendorIcon } from '../images/splendor.svg';
 
 function Home() {
   const codenameTileStyle = {
@@ -12,6 +13,18 @@ function Home() {
   
   const codenamesDuetTileStyle = {
     backgroundImage: `url(${process.env.PUBLIC_URL}/images/codenames-duet.png)`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
+  };
+
+  const decryptoTileStyle = {
+    backgroundImage: `url(${process.env.PUBLIC_URL}/images/decrypto.png)`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center'
+  };
+
+  const splendorTileStyle = {
+    backgroundColor: '#5c3d6a',
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   };
@@ -61,6 +74,7 @@ function Home() {
           className="game-tile" 
           role="button"
           aria-label="Decrypto board game"
+          style={decryptoTileStyle}
         >
           <div className="game-info">
             <div className="icon-wrapper">
@@ -83,6 +97,22 @@ function Home() {
             </div>
             <h2>Chess</h2>
             <p>The classic strategy game of kings and queens</p>
+          </div>
+        </Link>
+
+        <Link 
+          to="/splendor"
+          className="game-tile" 
+          role="button"
+          aria-label="Splendor board game"
+          style={splendorTileStyle}
+        >
+          <div className="game-info">
+            <div className="icon-wrapper">
+              <SplendorIcon />
+            </div>
+            <h2>Splendor</h2>
+            <p>Collect gems and build your jewelry empire</p>
           </div>
         </Link>
       </div>
