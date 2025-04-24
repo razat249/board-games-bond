@@ -41,6 +41,18 @@ const DecryptoGame = () => {
     }
   });
   
+  // State for editable game code
+  const [editableGameCode, setEditableGameCode] = useState(urlGameCode || gameState.gameCode);
+  // State to track if creating a new game or joining
+  const [creatingNewGame, setCreatingNewGame] = useState(!urlGameCode);
+  
+  // Always set to join mode when URL contains a game code
+  useEffect(() => {
+    if (urlGameCode) {
+      setCreatingNewGame(false);
+    }
+  }, [urlGameCode]);
+
   // Update URL when game code changes
   useEffect(() => {
     if (gameState.gameCode && !urlGameCode) {
@@ -63,6 +75,15 @@ const DecryptoGame = () => {
       code.push(Math.floor(getSeededRandom(seedVal) * 4) + 1);
     }
     return code;
+  };
+
+  // Handle game code input change
+  const handleGameCodeChange = (e) => {
+    const value = e.target.value;
+    // Only allow numbers and limit to 4 digits
+    if (/^\d{0,4}$/.test(value)) {
+      setEditableGameCode(value);
+    }
   };
   
   // Generate random words using the game code as seed
@@ -140,11 +161,10 @@ const DecryptoGame = () => {
 
   const [showControls, setShowControls] = useState(false);
   const [showCodeGenerator, setShowCodeGenerator] = useState(true);
-  const [showClueTracker, setShowClueTracker] = useState(true);
   // New state for collapsible sections
   const [collapsibleState, setCollapsibleState] = useState({
     teamBoard: true,
-    clueTracker: false,
+    clueTracker: true,
     codeGenerator: true,
     controls: true
   });
@@ -182,16 +202,19 @@ const DecryptoGame = () => {
   };
   
   const joinGame = (gameCode, teamName, isTeam2 = true) => {
+    // Use the editable game code if gameCode is not provided
+    const codeToUse = gameCode || editableGameCode;
+    
     // Navigate to the game URL
-    navigate(`/decrypto/${gameCode}`, { replace: true });
+    navigate(`/decrypto/${codeToUse}`, { replace: true });
     
     // Generate team words using the provided game code as seed
-    const team1Words = generateRandomWords(gameCode, 1);
-    const team2Words = generateRandomWords(gameCode, 2);
+    const team1Words = generateRandomWords(codeToUse, 1);
+    const team2Words = generateRandomWords(codeToUse, 2);
     
     // Generate codes for both teams using the game code
-    const team1Code = generateCode(gameCode, 1);
-    const team2Code = generateCode(gameCode, 101); // Add offset for team 2
+    const team1Code = generateCode(codeToUse, 1);
+    const team2Code = generateCode(codeToUse, 101); // Add offset for team 2
     
     setGameState(prev => ({
       ...prev,
@@ -199,7 +222,7 @@ const DecryptoGame = () => {
       team1Name: isTeam2 ? prev.team1Name : teamName,
       team2Name: isTeam2 ? teamName : prev.team2Name,
       isTeam2: isTeam2,
-      gameCode: gameCode,
+      gameCode: codeToUse,
       team1: {
         ...prev.team1,
         words: team1Words,
@@ -336,16 +359,32 @@ const DecryptoGame = () => {
   };
 
   return (
-    <div className="decrypto-game">
+    <div className={`decrypto-game ${gameState.isTeam2 ? 'light-theme' : ''}`}>
       {gameState.phase === 'setup' ? (
         <div className="setup-phase">
           <div className="game-code-container">
             <h3>GAME CODE</h3>
-            <div className="game-code-display">{gameState.gameCode}</div>
+            {creatingNewGame ? (
+              <div className="game-code-display">
+                {gameState.gameCode}
+                <div className="code-generated-note">Generated code</div>
+              </div>
+            ) : (
+              <input
+                type="text"
+                className="game-code-input"
+                value={editableGameCode}
+                onChange={handleGameCodeChange}
+                placeholder="Enter 4-digit code"
+                maxLength="4"
+              />
+            )}
             <p className="game-code-instructions">
-              {urlGameCode 
-                ? "You're joining an existing game. Choose your team below."
-                : "Share this code with the other team. They should enter it on their device."}
+              {urlGameCode && !creatingNewGame
+                ? "You can edit the game code to join a different game."
+                : creatingNewGame
+                  ? "Share this code with the other team. They should enter it on their device."
+                  : "Enter the 4-digit code shared by the other team to join their game."}
             </p>
           </div>
           <GameControls 
@@ -359,6 +398,9 @@ const DecryptoGame = () => {
             winner={getWinner()}
             joinGame={joinGame}
             hasUrlGameCode={Boolean(urlGameCode)}
+            editableGameCode={editableGameCode}
+            creatingNewGame={creatingNewGame}
+            setCreatingNewGame={setCreatingNewGame}
           />
         </div>
       ) : (
@@ -374,53 +416,30 @@ const DecryptoGame = () => {
               >
                 Share Game URL
               </button>
-
             </div>
           </div>
           
+          {/* Main Layout */}
           <div className="game-layout">
-            <div className="upper-section">
-              <div className={`team-board-container collapsible-section ${collapsibleState.teamBoard ? 'section-expanded' : 'section-collapsed'}`}>
-                <div className="section-header" onClick={() => toggleSection('teamBoard')}>
-                  <h3>Team board</h3>
-                  <span className="collapse-icon">{collapsibleState.teamBoard ? '−' : '+'}</span>
+            {/* Left Column with Team Board and Code Generator */}
+            <div className="left-column">
+              {/* Team Board */}
+              <div className="team-board-container">
+                <div className="section-content">
+                  <TeamBoard 
+                    teamNumber={teamToShow} 
+                    teamName={teamToShow === 1 ? gameState.team1Name : gameState.team2Name}
+                    teamData={teamToShow === 1 ? gameState.team1 : gameState.team2} 
+                    isCurrentTeam={gameState.currentTeam === teamToShow} 
+                    phase={gameState.phase}
+                    round={gameState.round}
+                    opponentTeamData={teamToShow === 1 ? gameState.team2 : gameState.team1}
+                    opponentTeamName={teamToShow === 1 ? gameState.team2Name : gameState.team1Name}
+                  />
                 </div>
-                {collapsibleState.teamBoard && (
-                  <div className="section-content">
-                    <TeamBoard 
-                      teamNumber={teamToShow} 
-                      teamName={teamToShow === 1 ? gameState.team1Name : gameState.team2Name}
-                      teamData={teamToShow === 1 ? gameState.team1 : gameState.team2} 
-                      isCurrentTeam={gameState.currentTeam === teamToShow} 
-                      phase={gameState.phase}
-                      round={gameState.round}
-                      opponentTeamData={teamToShow === 1 ? gameState.team2 : gameState.team1}
-                      opponentTeamName={teamToShow === 1 ? gameState.team2Name : gameState.team1Name}
-                    />
-                  </div>
-                )}
               </div>
               
-              <div className={`clue-tracker-container collapsible-section ${collapsibleState.clueTracker ? 'section-expanded' : 'section-collapsed'}`}>
-                <div className="section-header" onClick={() => toggleSection('clueTracker')}>
-                  <h3>Clue tracker</h3>
-                  <span className="collapse-icon">{collapsibleState.clueTracker ? '−' : '+'}</span>
-                </div>
-                {collapsibleState.clueTracker && (
-                  <div className="section-content">
-                    <ClueTracker 
-                      teamData={teamToShow === 1 ? gameState.team1 : gameState.team2}
-                      opponentTeamData={teamToShow === 1 ? gameState.team2 : gameState.team1}
-                      teamNumber={teamToShow}
-                      teamName={teamToShow === 1 ? gameState.team1Name : gameState.team2Name}
-                      opponentTeamName={teamToShow === 1 ? gameState.team2Name : gameState.team1Name}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-            
-            <div className="lower-section">
+              {/* Code Generator */}
               <div className={`code-generator-container collapsible-section ${collapsibleState.codeGenerator ? 'section-expanded' : 'section-collapsed'}`}>
                 <div className="section-header" onClick={() => toggleSection('codeGenerator')}>
                   <h3>Code generator</h3>
@@ -432,7 +451,21 @@ const DecryptoGame = () => {
                   </div>
                 )}
               </div>
-\
+            </div>
+            
+            {/* Right Column with Clue Tracker */}
+            <div className="right-column">
+              <div className={`clue-tracker-container collapsible-section ${collapsibleState.clueTracker ? 'section-expanded' : 'section-collapsed'}`}>
+                <div className="section-header" onClick={() => toggleSection('clueTracker')}>
+                  <h3>Clue tracker</h3>
+                  <span className="collapse-icon">{collapsibleState.clueTracker ? '−' : '+'}</span>
+                </div>
+                {collapsibleState.clueTracker && (
+                  <div className="section-content">
+                    <ClueTracker />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </>

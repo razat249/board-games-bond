@@ -141,11 +141,8 @@ const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round
       </div>
       
       <div className="team-turn-indicator">
-        {isMyTurnToEncrypt && <div className="turn-badge encrypt">GIVE CLUES</div>}
         {isMyTurnToGuess && <div className="turn-badge guess">GUESS CODE</div>}
       </div>
-      
-      {isMyDevice && <div className="your-team-badge">YOUR TEAM</div>}
     </div>
   );
 };

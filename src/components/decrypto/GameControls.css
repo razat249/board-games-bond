@@ -372,4 +372,14 @@
   .team-option {
     width: 100%;
   }
+}
+
+.url-join-heading {
+  color: #4ca8ff;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px dashed #4ca8ff;
+  padding-bottom: 10px;
 } 

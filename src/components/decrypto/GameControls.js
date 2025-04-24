@@ -21,7 +21,10 @@ const GameControls = ({
   gameEnded,
   winner,
   joinGame,
-  hasUrlGameCode
+  hasUrlGameCode,
+  editableGameCode,
+  creatingNewGame,
+  setCreatingNewGame
 }) => {
   const [team1Words, setTeam1Words] = useState(['', '', '', '']);
   const [team2Words, setTeam2Words] = useState(['', '', '', '']);
@@ -31,15 +34,13 @@ const GameControls = ({
   const [teamGuess, setTeamGuess] = useState([1, 1, 1]);
   const [interceptionGuess, setInterceptionGuess] = useState([1, 1, 1]);
   const [showInterception, setShowInterception] = useState(false);
-  const [joinGameCode, setJoinGameCode] = useState('');
   const [joiningTeamName, setJoiningTeamName] = useState('Team 1');
-  const [creatingNewGame, setCreatingNewGame] = useState(!hasUrlGameCode);
   const [selectedTeam, setSelectedTeam] = useState('team1'); // Default to team 1 for joining
 
   // Initialize join game code from gameState when available via URL
   useEffect(() => {
     if (hasUrlGameCode && gameState.gameCode) {
-      setJoinGameCode(gameState.gameCode);
+      // No need to set joinGameCode as we're using editableGameCode now
     }
   }, [hasUrlGameCode, gameState.gameCode]);
 
@@ -103,8 +104,8 @@ const GameControls = ({
   };
 
   const handleJoinGame = () => {
-    if (!joinGameCode.trim()) {
-      alert('Please enter a game code');
+    if (!editableGameCode || editableGameCode.length < 4) {
+      alert('Please enter a valid 4-digit game code');
       return;
     }
     
@@ -112,7 +113,7 @@ const GameControls = ({
     const teamName = joiningTeamName || (isTeam2 ? 'Team 2' : 'Team 1');
     
     // Join existing game
-    joinGame(joinGameCode.trim(), teamName, isTeam2);
+    joinGame(editableGameCode, teamName, isTeam2);
   };
 
   const autoGenerateTeam1Words = () => {
@@ -158,6 +159,10 @@ const GameControls = ({
               JOIN GAME
             </button>
           </div>
+        )}
+
+        {hasUrlGameCode && (
+          <h3 className="url-join-heading">Join Game</h3>
         )}
 
         {creatingNewGame && !hasUrlGameCode ? (
@@ -210,20 +215,6 @@ const GameControls = ({
         ) : (
           // Join existing game
           <div className="join-game-section">
-            {!hasUrlGameCode && (
-              <div className="game-code-input">
-                <label>GAME CODE:</label>
-                <input
-                  type="text"
-                  value={joinGameCode}
-                  onChange={(e) => setJoinGameCode(e.target.value.toUpperCase())}
-                  placeholder="Enter game code"
-                  className="game-code-field"
-                  maxLength={6}
-                />
-              </div>
-            )}
-            
             <div className="team-selection">
               <h3>SELECT YOUR TEAM</h3>
               <div className="team-options">
