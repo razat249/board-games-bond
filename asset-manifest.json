@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/board-games-bond/static/css/main.971b9c5b.css",
-    "main.js": "/board-games-bond/static/js/main.47b0bb01.js",
+    "main.css": "/board-games-bond/static/css/main.68e7fb57.css",
+    "main.js": "/board-games-bond/static/js/main.4176ff19.js",
     "index.html": "/board-games-bond/index.html",
     "static/media/codenames.svg": "/board-games-bond/static/media/codenames.1fcd0647ac2afad1051cdc55026a0374.svg",
     "static/media/decrypto.svg": "/board-games-bond/static/media/decrypto.b8d0737f0e6056b9f616de6449b1db08.svg",
     "static/media/chess.svg": "/board-games-bond/static/media/chess.638b40914fb913229dcd373297a0915c.svg",
     "static/media/splendor.svg": "/board-games-bond/static/media/splendor.7fd12e2be83a0d8c2c1e6b7256c5e6c5.svg",
-    "main.971b9c5b.css.map": "/board-games-bond/static/css/main.971b9c5b.css.map",
-    "main.47b0bb01.js.map": "/board-games-bond/static/js/main.47b0bb01.js.map"
+    "main.68e7fb57.css.map": "/board-games-bond/static/css/main.68e7fb57.css.map",
+    "main.4176ff19.js.map": "/board-games-bond/static/js/main.4176ff19.js.map"
   },
   "entrypoints": [
-    "static/css/main.971b9c5b.css",
-    "static/js/main.47b0bb01.js"
+    "static/css/main.68e7fb57.css",
+    "static/js/main.4176ff19.js"
   ]
 }
