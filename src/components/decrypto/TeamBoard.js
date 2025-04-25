@@ -1,8 +1,45 @@
 import React, { useState } from 'react';
 import './TeamBoard.css';
 
-const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round, opponentTeamData, opponentTeamName }) => {
+const TeamBoard = ({ 
+  teamNumber, 
+  teamName, 
+  teamData, 
+  isCurrentTeam, 
+  phase, 
+  round, 
+  opponentTeamData, 
+  opponentTeamName,
+  onInterceptionChange,
+  onMiscommunicationChange
+}) => {
   const { words, intercepted, miscommunications, codes, clues, guesses } = teamData;
+  
+  // Add state for local counters that will update the UI immediately before propagating to the parent
+  const [interceptionCount, setInterceptionCount] = useState(intercepted);
+  const [miscommunicationCount, setMiscommunicationCount] = useState(miscommunications);
+  
+  // Update local state when props change
+  React.useEffect(() => {
+    setInterceptionCount(intercepted);
+    setMiscommunicationCount(miscommunications);
+  }, [intercepted, miscommunications]);
+
+  // Handle interception count changes
+  const handleInterceptionChange = (newCount) => {
+    setInterceptionCount(newCount);
+    if (onInterceptionChange) {
+      onInterceptionChange(newCount);
+    }
+  };
+
+  // Handle miscommunication count changes
+  const handleMiscommunicationChange = (newCount) => {
+    setMiscommunicationCount(newCount);
+    if (onMiscommunicationChange) {
+      onMiscommunicationChange(newCount);
+    }
+  };
 
   const renderWordCards = () => {
     return (
@@ -103,11 +140,51 @@ const TeamBoard = ({ teamNumber, teamName, teamData, isCurrentTeam, phase, round
       <div className="team-status">
         <div className="status-item">
           <span className="status-label">INTERCEPTIONS</span>
-          <span className="status-value">{intercepted}/2</span>
+          <div className="status-counter">
+            <span className="status-value">{interceptionCount}/2</span>
+            <div className="counter-controls">
+              <button 
+                className="counter-button increment"
+                onClick={() => handleInterceptionChange(Math.min(interceptionCount + 1, 2))}
+                disabled={interceptionCount >= 2}
+                aria-label="Increment interceptions"
+              >
+                +
+              </button>
+              <button 
+                className="counter-button decrement"
+                onClick={() => handleInterceptionChange(Math.max(interceptionCount - 1, 0))}
+                disabled={interceptionCount <= 0}
+                aria-label="Decrement interceptions"
+              >
+                -
+              </button>
+            </div>
+          </div>
         </div>
         <div className="status-item">
           <span className="status-label">MISCOMMUNICATIONS</span>
-          <span className="status-value">{miscommunications}/2</span>
+          <div className="status-counter">
+            <span className="status-value">{miscommunicationCount}/2</span>
+            <div className="counter-controls">
+              <button 
+                className="counter-button increment"
+                onClick={() => handleMiscommunicationChange(Math.min(miscommunicationCount + 1, 2))}
+                disabled={miscommunicationCount >= 2}
+                aria-label="Increment miscommunications"
+              >
+                +
+              </button>
+              <button 
+                className="counter-button decrement"
+                onClick={() => handleMiscommunicationChange(Math.max(miscommunicationCount - 1, 0))}
+                disabled={miscommunicationCount <= 0}
+                aria-label="Decrement miscommunications"
+              >
+                -
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );

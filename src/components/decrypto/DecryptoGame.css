@@ -153,6 +153,40 @@
   flex: 0 0 50% !important;
 }
 
+/* Add styles for large screens */
+@media (min-width: 1440px) {
+  .game-layout {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 0 40px 0 0 !important;
+    gap: 40px !important;
+  }
+  
+  .team-board-container, 
+  .code-generator-container, 
+  .controls-container,
+  .clue-tracker-container {
+    padding: 25px !important;
+    margin-bottom: 30px !important;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1800px) {
+  .game-layout {
+    max-width: 1700px !important;
+    padding: 0 60px !important;
+    gap: 60px !important;
+  }
+  
+  .team-board-container, 
+  .code-generator-container, 
+  .controls-container,
+  .clue-tracker-container {
+    padding: 30px !important;
+  }
+}
+
 .team-board-container, .code-generator-container, .controls-container {
   margin-bottom: 20px !important;
   border: 1px solid #444 !important;

@@ -338,6 +338,33 @@ const DecryptoGame = () => {
   const teamToShow = gameState.isTeam2 ? 2 : 1;
   const opponentTeamNumber = teamToShow === 1 ? 2 : 1;
 
+  // Add handlers for counter updates
+  const handleInterceptionChange = (teamNum, count) => {
+    setGameState(prev => {
+      const teamKey = teamNum === 1 ? 'team1' : 'team2';
+      return {
+        ...prev,
+        [teamKey]: {
+          ...prev[teamKey],
+          intercepted: count
+        }
+      };
+    });
+  };
+
+  const handleMiscommunicationChange = (teamNum, count) => {
+    setGameState(prev => {
+      const teamKey = teamNum === 1 ? 'team1' : 'team2';
+      return {
+        ...prev,
+        [teamKey]: {
+          ...prev[teamKey],
+          miscommunications: count
+        }
+      };
+    });
+  };
+
   // Share game URL function
   const shareGameUrl = () => {
     const gameUrl = window.location.href;
@@ -435,6 +462,8 @@ const DecryptoGame = () => {
                     round={gameState.round}
                     opponentTeamData={teamToShow === 1 ? gameState.team2 : gameState.team1}
                     opponentTeamName={teamToShow === 1 ? gameState.team2Name : gameState.team1Name}
+                    onInterceptionChange={(count) => handleInterceptionChange(teamToShow, count)}
+                    onMiscommunicationChange={(count) => handleMiscommunicationChange(teamToShow, count)}
                   />
                 </div>
               </div>
