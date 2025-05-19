@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/board-games-bond/static/css/main.8367351f.css",
-    "main.js": "/board-games-bond/static/js/main.693e7a61.js",
+    "main.js": "/board-games-bond/static/js/main.251aed3a.js",
     "index.html": "/board-games-bond/index.html",
     "static/media/codenames.svg": "/board-games-bond/static/media/codenames.1fcd0647ac2afad1051cdc55026a0374.svg",
     "static/media/decrypto.svg": "/board-games-bond/static/media/decrypto.b8d0737f0e6056b9f616de6449b1db08.svg",
     "static/media/wavelength.svg": "/board-games-bond/static/media/wavelength.2aaaffd1d5954a7444ad5415658f9f50.svg",
     "main.8367351f.css.map": "/board-games-bond/static/css/main.8367351f.css.map",
-    "main.693e7a61.js.map": "/board-games-bond/static/js/main.693e7a61.js.map"
+    "main.251aed3a.js.map": "/board-games-bond/static/js/main.251aed3a.js.map"
   },
   "entrypoints": [
     "static/css/main.8367351f.css",
-    "static/js/main.693e7a61.js"
+    "static/js/main.251aed3a.js"
   ]
 }
